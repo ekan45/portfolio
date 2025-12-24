@@ -1,0 +1,36 @@
+﻿/* MINIMAL FIX - Only fix what's broken, don't break animations */
+
+/* Ensure portfolio wrapper shows when active */
+.portfolio-wrapper {
+    display: none;
+}
+
+.portfolio-wrapper.active {
+    display: block;
+    animation: slideInRight 0.8s ease forwards;
+}
+
+/* Ensure canvas covers full page from top to bottom */
+.particle-canvas {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Ensure all content is above snowfall */
+.header,
+.about,
+.skills,
+.projects,
+.contact,
+.container,
+section {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* DO NOT override opacity or visibility - let scroll animations work! */

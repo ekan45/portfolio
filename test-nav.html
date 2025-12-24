@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Nav Test</title>
+    <style>
+        .nav-link {
+            padding: 10px;
+            margin: 0 5px;
+            background: #eee;
+            text-decoration: none;
+            color: black;
+            position: relative;
+        }
+
+        .nav-link.active {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: red;
+        }
+
+        section {
+            height: 600px;
+            border: 2px solid black;
+            margin: 20px 0;
+            padding: 20px;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 10px;
+            border-bottom: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="#about" class="nav-link active">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <div class="portfolio-wrapper">
+        <section id="about">
+            <h2>About Section</h2>
+            <p>Scroll down to test...</p>
+        </section>
+
+        <section id="skills">
+            <h2>Skills Section</h2>
+            <p>Keep scrolling...</p>
+        </section>
+
+        <section id="projects">
+            <h2>Projects Section</h2>
+            <p>Almost there...</p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Section</h2>
+            <p>Last section!</p>
+        </section>
+    </div>
+
+    <script>
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveNavOnScroll() {
+            const sections = document.querySelectorAll('.portfolio-wrapper section[id]');
+            console.log('Sections found:', sections.length);
+            if (sections.length === 0) return;
+
+            const scrollY = window.scrollY || window.pageYOffset;
+            let currentSection = 'about';
+
+            console.log('Scroll position:', scrollY);
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionId = section.getAttribute('id');
+                console.log(`Section ${sectionId}: top=${sectionTop}`);
+
+                if (scrollY >= sectionTop) {
+                    currentSection = sectionId;
+                }
+            });
+
+            console.log('Active section:', currentSection);
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                    console.log('Activated:', currentSection);
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNavOnScroll);
+        updateActiveNavOnScroll();
+    </script>
+</body>
+
+</html>
